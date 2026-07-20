@@ -13,7 +13,8 @@ const leaderboard_1 = __importDefault(require("./routes/leaderboard"));
 const workouts_1 = __importDefault(require("./routes/workouts"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-const port = 8000;
+const port = Number(process.env.PORT || 8000);
+const host = '0.0.0.0';
 const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/octofit_db';
 const codespaceName = process.env.CODESPACE_NAME;
 const baseUrl = codespaceName
@@ -32,7 +33,7 @@ mongoose_1.default
     .connect(mongoUri)
     .then(() => {
     console.log('MongoDB connected');
-    app.listen(port, () => {
+    app.listen(port, host, () => {
         console.log(`Backend listening on port ${port}`);
         console.log(`API base URL: ${baseUrl}`);
     });

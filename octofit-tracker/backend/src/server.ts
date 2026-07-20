@@ -10,7 +10,8 @@ import workoutsRouter from './routes/workouts';
 dotenv.config();
 
 const app = express();
-const port = 8000;
+const port = Number(process.env.PORT || 8000);
+const host = '0.0.0.0';
 const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/octofit_db';
 const codespaceName = process.env.CODESPACE_NAME;
 const baseUrl = codespaceName
@@ -33,7 +34,7 @@ mongoose
   .connect(mongoUri)
   .then(() => {
     console.log('MongoDB connected');
-    app.listen(port, () => {
+    app.listen(port, host, () => {
       console.log(`Backend listening on port ${port}`);
       console.log(`API base URL: ${baseUrl}`);
     });
